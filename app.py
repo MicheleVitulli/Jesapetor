@@ -16,7 +16,11 @@ def home():
 @app.route('/results')
 def results():
     results = session.get('results', None)
-    return render_template('results.html', results=results)
+    session['results'] = None
+    if results != None:
+        return render_template('results.html', results=results)
+    elif results == None:
+        return "Pagina non disponibile, torna alla Home"
 
 if __name__ == '__main__':
     app.run(debug=True)
