@@ -1,25 +1,22 @@
-from flask import Flask, render_template, request
+from flask import Flask, request, jsonify, redirect, url_for, render_template, session
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key_here'
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        # Process the form data
-        nome = request.form.get('nome')
-        email = request.form.get('email')
-        genere = request.form.get('genere')
-        eta = request.form.get('eta')
-        feedback = request.form.get('feedback')
-        
-        # Here, you can do something with the form data, like storing it or sending it elsewhere
-        print("Form Data Received:", nome, email, genere, eta, feedback)
-        
-        # After processing the data, you can redirect the user or return a response
-        return render_template("results.html")
+        results = request.json.get('results')
+        session['results'] = results
+        return jsonify({"redirect": url_for('results')})
+    
+    if request.method == 'GET':
+        return render_template('index.html')
 
-    # If it's a GET request, just render the template
-    return render_template('index.html')
+@app.route('/results')
+def results():
+    results = session.get('results', None)
+    return render_template('results.html', results=results)
 
 if __name__ == '__main__':
     app.run(debug=True)

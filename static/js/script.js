@@ -1,39 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const questions = [
-        {
-            id: 1,
-            text: "Ti piace usare il computer?",
-            value_true: ['m', 'a', 'i'],
-            value_false: ['m', 'b', 'h'],
-            type: "boolean", // true or false question
-            next: (answer) => answer ? 2 : 3, // Determines next question based on answer
-        },
-        {
-            id: 2,
-            text: "Tanto tanto?",
-            type: "boolean",
-            value_true: ['a', 'i'],
-            value_false: ['b', 'm'],
-            next: () => 4, // Always goes to question 4
-        },
-        {
-            id: 3,
-            text: "Sei piu interessato a entrare in contatto con i clienti?",
-            type: "boolean",
-            value_true: ['m', 'b'],
-            value_false: ['h', 'a'],
-            next: () => 4, // Also goes to question 4, for a different path
-        },
-        {
-            id: 4,
-            text: "Ti piace jesap?",
-            type: "boolean",
-            value_true: [],
-            value_false: ['f'],
-            next: () => null, // End of the questionnaire
-        },
-    ];
-
+import { questions } from './questions.js';
+document.addEventListener('DOMContentLoaded', function () {
     let currentQuestionIndex = 0;
     let answersDictionary = {};
     let answerArray = [];
@@ -56,35 +22,87 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function setupNextQuestion() {
+        let results;
         const nextButtons = document.querySelectorAll('.nextQuestion');
         nextButtons.forEach(button => {
-            button.addEventListener('change', function() {
+            button.addEventListener('change', function () {
                 const answer = document.querySelector(`input[name="question${questions[currentQuestionIndex].id}"]:checked`).value === "true";
                 // Dictionary operations
                 answersDictionary[currentQuestionIndex] = answer;
                 console.log(answersDictionary)
                 // Array operations
-                
-                if (answer === true){
+                if (answer === true) {
                     var temp_array = questions[currentQuestionIndex].value_true;
                 } else {
                     var temp_array = questions[currentQuestionIndex].value_false;
                 }
                 answerArray.push(...temp_array);
+                const anArray = answerArray;
+                var nextIndex = questions[currentQuestionIndex].next(answer);
+                //check se l'id della domanda è it (ultime) e ho raggiunto 3 in qualche categoria
+                if (currentQuestionIndex > 15) {
+                    results = checkRisposte(anArray);
+                    if (results.length > 0) {
+                        console.log("HAI TROVATO LA TUA AREA");
+                        console.log(results);
+                        console.log("SEI FELICE?");
+                        nextIndex = null;
+                    }
+                }
                 console.log(answerArray);
                 // end
-                const nextIndex = questions[currentQuestionIndex].next(answer);
+
                 if (nextIndex !== null) {
                     currentQuestionIndex = questions.findIndex(q => q.id === nextIndex);
                     displayQuestion(questions[currentQuestionIndex]);
                 } else {
-                    document.getElementById('questionContainer').innerHTML = "<p>Thank you for completing the questionnaire.</p>";
-                    // If you had a separate "Next" button, you would hide it here.
+                    submitResults(results);
                 }
             });
         });
     }
 
+    function checkRisposte(anArray) {
+        console.log("check risposte");
+        const count_marketing = anArray.filter(element => element === "m").length;
+        const count_bd = anArray.filter(element => element === "b").length;
+        const count_audit = anArray.filter(element => element === "a").length;
+        const count_hr = anArray.filter(element => element === "h").length;
+        const count_it = anArray.filter(element => element === "i").length;
+
+        var results = [];
+        if (count_marketing > 2) { results.push('m'); }
+        if (count_bd > 2) { results.push('b'); }
+        if (count_audit > 2) { results.push('a'); }
+        if (count_hr > 2) { results.push('h'); }
+        if (count_it > 2) { results.push('i'); }
+        return results;
+    }
+
+    // When ready to submit the results
+    function submitResults(results) {
+        fetch('/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ results: results }),
+        })
+        .then(response => response.json()) // Assicurati che il server restituisca una risposta JSON
+        .then(data => {
+            if (data.redirect) {
+                // Reindirizza l'utente all'URL ricevuto dalla risposta del server
+                window.location.href = data.redirect;
+            }
+        })
+        .catch((error) => {
+            console.error('Errore:', error);
+        });
+    }
     
+
+    
+
+
     displayQuestion(questions[currentQuestionIndex]);
 });
