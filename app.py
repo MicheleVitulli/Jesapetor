@@ -9,9 +9,9 @@ def home():
         results = request.json.get('results')
         session['results'] = results
         return jsonify({"redirect": url_for('results')})
-    
+
     if request.method == 'GET':
-        return render_template('index.html')
+        return render_template('test.html')
 
 @app.route('/results')
 def results():

@@ -1,22 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My Flask App</title>
+        <!-- Bootstrap CSS for styling and responsive design -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <!-- Custom CSS for additional styling -->
+        <style>
+            body {
+                background-color: #f8f9fa; /* Light grey background for a modern look */
+            }
+            h1 {
+                color: #343a40; /* Dark grey color for the heading for better contrast */
+            }
+            .container {
+                padding-top: 2rem; /* More breathing room at the top */
+                padding-bottom: 2rem; /* More breathing room at the bottom */
+            }
+        </style>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Flask App</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+    <body>
+        <div class="container mt-5">
+            <h1 class="mb-4 text-center">Benvenuto su Jesapetor!</h1>
 
-<body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Benvenuto su Jesapetor!</h1>
-        
-        <div id="questionContainer"></div>
-    </div>
+            <div id="questionContainer">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script type= "module" src="{{ url_for('static', filename='js/script.js') }}"></script>
-</body>
-
+        <!-- Bootstrap Bundle with Popper for interactive components -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Flask's way to link a script; ensure you have a script.js in your static/js folder -->
+        <script
+            type="module"
+            src="{{ url_for('static', filename='js/script.js') }}"
+        ></script>
+    </body>
 </html>
