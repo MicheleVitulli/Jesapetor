@@ -23,9 +23,9 @@ def results():
             if elem == 'm':
                 aree.append('Marketing')
             if elem == 'b':
-                aree.append('Business Development')
+                aree.append('Business')
             if elem == 'h':
-                aree.append('Human Resources')
+                aree.append('HR')
             if elem == 'a':
                 aree.append('Audit')
             if elem == 'i':
@@ -36,9 +36,7 @@ def results():
         return render_template('results.html', aree=aree, numero=numero)
     else:
         print("Pagina non disponibile, torna alla Home")
-        return """
-                <h3>Pagina non disponibile, torna alla <a href="/">Home</a></h3>
-                """
+        return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run(debug=True)

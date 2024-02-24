@@ -4,6 +4,11 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Jesapetor</title>
+        <link
+            rel="icon"
+            href="{{ url_for('static', filename='civetta.webp') }}"
+            type="image/png"
+        />
         <!-- Bootstrap CSS -->
         <link
             rel="stylesheet"
@@ -83,6 +88,8 @@
                 color: #fff;
                 /* White text */
             }
+            
+           
         </style>
     </head>
 
@@ -103,10 +110,76 @@
             </div>
         </nav>
         <div class="container py-5">
-            {% if numero == 1 %}
             <h2 class="section-title mb-4">
-                L'area di JESAP Consulting perfetta per te è {{ aree[0] }}
+                L'area di JESAP Consulting perfetta per te è ...
             </h2>
+            {% if aree[0] == "IT" %}
+            <div class="row">
+                <div class="col-md-4 d-none d-md-block text-center">
+                    <!-- First column with image -->
+                    <img src="static/it/2.png" alt="Image 1" class="img-fluid">
+                </div>
+                <div class="col-md-4 text-center">
+                    <!-- Second column with image -->
+                    <img src="static/it/1.png" alt="Image 2" class="img-fluid">
+                </div>
+                <div class="col-md-4 d-none d-md-block text-center">
+                    <!-- Third column with image -->
+                    <img src="static/it/3.png" alt="Image 2" class="img-fluid">
+                </div>
+            </div>
+            {% elif aree[0] == "HR" %}
+            <div class="row">
+                <div class="col-md-4 d-none d-md-block text-center">
+                    <!-- First column with image -->
+                    <img src="static/hr/2.png" alt="Image 1" class="img-fluid">
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="static/hr/1.png" alt="Image 2" class="img-fluid">
+                </div>
+                <div class="col-md-4 d-none d-md-block text-center">
+                    <img src="static/hr/3.png" alt="Image 3" class="img-fluid">
+                </div>
+            </div>
+            {% elif aree[0] == "Marketing" %}
+            <div class="row">
+                <div class="col-md-4 d-none d-md-block text-center">
+                    <!-- First column with image -->
+                    <img src="static/marketing/2.png" alt="Image 1" class="img-fluid">  
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="static/marketing/1.png" alt="Image 2" class="img-fluid">
+                </div>
+                <div class="col-md-4 d-none d-md-block text-center">
+                    <img src="static/marketing/3.png" alt="Image 3" class="img-fluid">  
+                </div>
+            </div>
+            {% elif aree[0] == "Business" %}
+            <div class="row">
+                <div class="col-md-4 d-none d-md-block text-center">
+                    <!-- First column with image -->
+                    <img src="static/bd/2.png" alt="Image 1" class="img-fluid">
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="static/bd/1.png" alt="Image 2" class="img-fluid">
+                </div>
+                <div class="col-md-4 d-none d-md-block text-center">
+                    <img src="static/bd/3.png" alt="Image 3" class="img-fluid">   
+                </div>
+            </div>
+            {% elif aree[0] == "Audit" %}
+            <div class="row">
+                <div class="col-md-4 d-none d-md-block text-center">
+                    <!-- First column with image -->
+                    <img src="static/audit/2.png" alt="Image 1" class="img-fluid">
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="static/audit/1.png" alt="Image 2" class="img-fluid">  
+                </div>
+                <div class="col-md-4 d-none d-md-block text-center">
+                    <img src="static/audit/3.png" alt="Image 3" class="img-fluid">  
+                </div>      
+            </div>
             {% else %}
             <h2 class="section-title mb-4">
                 Le aree di JESAP Consulting perfette per te sono:
@@ -123,5 +196,6 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        
     </body>
 </html>
