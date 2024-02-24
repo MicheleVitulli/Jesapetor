@@ -11,7 +11,7 @@ def home():
         return jsonify({"redirect": url_for('results')})
 
     if request.method == 'GET':
-        return render_template('test.html')
+        return render_template('index.html')
 
 @app.route('/results')
 def results():

@@ -7,17 +7,51 @@ document.addEventListener("DOMContentLoaded", function () {
   function displayQuestion(question) {
     const container = document.getElementById("questionContainer");
     container.innerHTML = `
-          <div class="mb-3">
-              <label class="form-label" style="font-weight: bold;">${question.text}</label>
-              <div class="form-check form-check-inline">
-                  <input type="radio" class="nextQuestion btn-check" name="question${question.id}" id="option1-${question.id}" value="true" autocomplete="off">
-                  <label class="btn btn-outline-primary" for="option1-${question.id}">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                  <input type="radio" class="nextQuestion btn-check" name="question${question.id}" id="option2-${question.id}" value="false" autocomplete="off">
-                  <label class="btn btn-outline-primary" for="option2-${question.id}">No</label>
-              </div>
-          </div>`;
+      <h2 class="section-title mb-4">${question.text}</h2>
+
+      <div class="row justify-content-center no-wrap">
+          <!-- Option Yes -->
+          <div class="col-6 text-center">
+              <label for="option1-${question.id}" class="product-button">
+                  <input
+                      type="radio"
+                      class="nextQuestion btn-check"
+                      name="question${question.id}"
+                      id="option1-${question.id}"
+                      value="true"
+                      style="display: none"
+                      autocomplete="off"
+                  />
+                  <img
+                      src="${siImageUrl}"
+                      alt="Yes"
+                      class="img-fluid rounded-img"
+                  />
+
+              </label>
+          </div>
+
+          <!-- Option No -->
+          <div class="col-6 text-center">
+              <label for="option2-${question.id}" class="product-button">
+                  <input
+                      type="radio"
+                      class="nextQuestion btn-check"
+                      name="question${question.id}"
+                      id="option2-${question.id}"
+                      value="false"
+                      style="display: none"
+                      autocomplete="off"
+                  />
+                  <img
+                      src="${noImageUrl}"
+                      alt="No"
+                      class="img-fluid rounded-img"
+                  />
+
+              </label>
+          </div>
+      </div>`;
     setupNextQuestion();
   }
 
