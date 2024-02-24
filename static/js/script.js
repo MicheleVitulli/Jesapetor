@@ -54,47 +54,55 @@ document.addEventListener("DOMContentLoaded", function () {
       </div>`;
     setupNextQuestion();
   }
+  $(document).on("click", ".rounded-img", function () {
+    console.log("clicked");
+    $(this).toggleClass("rounded-img-clicked");
+  });
 
   function setupNextQuestion() {
     let results;
     const nextButtons = document.querySelectorAll(".nextQuestion");
     nextButtons.forEach((button) => {
       button.addEventListener("change", function () {
-        const answer =
-          document.querySelector(
-            `input[name="question${questions[currentQuestionIndex].id}"]:checked`,
-          ).value === "true";
-        // Dictionary operations
-        answersDictionary[currentQuestionIndex] = answer;
-        console.log(answersDictionary);
-        // Array operations
-        if (answer === true) {
-          var temp_array = questions[currentQuestionIndex].value_true;
-        } else {
-          var temp_array = questions[currentQuestionIndex].value_false;
-        }
-        answerArray.push(...temp_array);
-        const anArray = answerArray;
-        var nextIndex = questions[currentQuestionIndex].next(answer);
-        //check se l'id della domanda è it (ultime) e ho raggiunto 3 in qualche categoria
-        if (currentQuestionIndex > 15) {
-          results = checkRisposte(anArray);
-          if (results.length > 0) {
-            console.log("HAI TROVATO LA TUA AREA");
-            console.log(results);
-            console.log("SEI FELICE?");
-            nextIndex = null;
+        setTimeout(() => {
+          const answer =
+            document.querySelector(
+              `input[name="question${questions[currentQuestionIndex].id}"]:checked`,
+            ).value === "true";
+          // Dictionary operations
+          answersDictionary[currentQuestionIndex] = answer;
+          console.log(answersDictionary);
+          // Array operations
+          if (answer === true) {
+            var temp_array = questions[currentQuestionIndex].value_true;
+          } else {
+            var temp_array = questions[currentQuestionIndex].value_false;
           }
-        }
-        console.log(answerArray);
-        // end
+          answerArray.push(...temp_array);
+          const anArray = answerArray;
+          var nextIndex = questions[currentQuestionIndex].next(answer);
+          //check se l'id della domanda è it (ultime) e ho raggiunto 3 in qualche categoria
+          if (currentQuestionIndex > 15) {
+            results = checkRisposte(anArray);
+            if (results.length > 0) {
+              console.log("HAI TROVATO LA TUA AREA");
+              console.log(results);
+              console.log("SEI FELICE?");
+              nextIndex = null;
+            }
+          }
+          console.log(answerArray);
+          // end
 
-        if (nextIndex !== null) {
-          currentQuestionIndex = questions.findIndex((q) => q.id === nextIndex);
-          displayQuestion(questions[currentQuestionIndex]);
-        } else {
-          submitResults(results);
-        }
+          if (nextIndex !== null) {
+            currentQuestionIndex = questions.findIndex(
+              (q) => q.id === nextIndex,
+            );
+            displayQuestion(questions[currentQuestionIndex]);
+          } else {
+            submitResults(results);
+          }
+        }, 500);
       });
     });
   }

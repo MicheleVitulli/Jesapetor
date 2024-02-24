@@ -17,10 +17,28 @@ def home():
 def results():
     results = session.get('results', None)
     session['results'] = None
+    aree = []
     if results != None:
-        return render_template('results.html', results=results)
-    elif results == None:
-        return "Pagina non disponibile, torna alla Home"
+        for elem in results:
+            if elem == 'm':
+                aree.append('Marketing')
+            if elem == 'b':
+                aree.append('Business Development')
+            if elem == 'h':
+                aree.append('Human Resources')
+            if elem == 'a':
+                aree.append('Audit')
+            if elem == 'i':
+                aree.append('IT')
+    numero = len(aree)
+
+    if results != None:
+        return render_template('results.html', aree=aree, numero=numero)
+    else:
+        print("Pagina non disponibile, torna alla Home")
+        return """
+                <h3>Pagina non disponibile, torna alla <a href="/">Home</a></h3>
+                """
 
 if __name__ == '__main__':
     app.run(debug=True)

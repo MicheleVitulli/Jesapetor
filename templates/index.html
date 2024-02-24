@@ -13,10 +13,15 @@
             .section-title {
                 text-align: center;
                 color: #07277c;
-                font-size: 2.61rem;
+                font-size: 2.4rem;
                 font-weight: 600;
                 line-height: 1.5;
-                text-transform: capitalize;
+            }
+            .section-title2 {
+                color: #07277c;
+                font-size: 1.9rem;
+                font-weight: 600;
+                line-height: 1.5;
             }
 
             .product-item img {
@@ -40,10 +45,18 @@
                 }
             }
             .rounded-img {
-                max-width: 100%; /* Makes image responsive */
+                max-width: 80%; /* Makes image responsive */
                 height: auto; /* Maintains aspect ratio */
                 border-radius: 50%; /* Keeps the rounded style */
                 object-fit: cover; /* Ensures the image covers the area well */
+                border: 4px solid #9b51e0;
+            }
+            .rounded-img-clicked {
+                border: 6px solid #ff00ff; /* Example: Change to a different color and make it thicker */
+                transform: scale(1.1); /* Example: Slightly enlarge the image */
+                transition:
+                    transform 0.3s ease,
+                    border 0.3s ease; /* Smooth transition for the transform and border change */
             }
 
             /* Ensure the columns stack on smaller screens */
@@ -53,14 +66,22 @@
                     max-width: 100%;
                 }
             }
+            /* Custom Navbar Style */
+            .custom-navbar {
+                background-color: #07277c; /* Purple color */
+            }
+            .navbar-brand {
+                color: #fff; /* White text */
+            }
         </style>
     </head>
     <body>
-        <nav class="navbar bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
+        <nav class="navbar custom-navbar">
+            <div class="container-fluid justify-content-center">
+                <a class="navbar-brand" href="#" style="color: white">
+                    <!-- Added inline style for white text -->
                     <img
-                        src="https://tyler.com/wp-content/uploads/2023/11/island-image2.png"
+                        src="{{ url_for('static', filename='civetta.webp') }}"
                         alt="Logo"
                         width="30"
                         height="24"
