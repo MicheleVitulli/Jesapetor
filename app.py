@@ -33,7 +33,7 @@ def results():
     numero = len(aree)
 
     if results != None:
-        return render_template('results.html', aree=aree, numero=numero)
+        return render_template('results2.html', aree=aree, numero=numero)
     else:
         print("Pagina non disponibile, torna alla Home")
         return redirect(url_for('home'))
