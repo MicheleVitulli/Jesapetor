@@ -27,7 +27,7 @@ def results():
             if elem == 'h':
                 aree.append('HR')
             if elem == 'a':
-                aree.append('Audit')
+                aree.append('Data & Analytics')
             if elem == 'i':
                 aree.append('IT')
     numero = len(aree)
